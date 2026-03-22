@@ -1,0 +1,68 @@
+cff-version: 1.2.0
+title: "QLCM · STP Interference Experiment"
+message: "If you use or reference this work, please cite it using the metadata below."
+type: software
+license: CC-BY-NC-4.0
+
+abstract: >
+  A controlled interference experiment between two independently developed
+  theoretical architectures — the Quantum Language & Consciousness Model (QLCM)
+  and the Sovereign Trace Protocol (STP) / AION Constitutional Stack — that
+  arrived at convergent structures from opposite directions. The experiment tests
+  whether cryptographic sealing (STP) preserves or collapses quantum-like
+  semantic coherence as measured by the QLCM Ei (entanglement index) metric.
+  No forced fusion. Sovereign architectures. Observation only.
+
+authors:
+  - family-names: "Navarro Tovar"
+    given-names: "Osmary Lisbeth"
+    orcid: "https://orcid.org/0009-0004-3966-9497"
+    affiliation: "Independent Researcher — Creadora de QLCM"
+    city: "Caracas"
+    country: "VE"
+    website: "https://ccuantica.com"
+    contribution: "QLCM operators (ÓC, ÓN, ÓD), Ei metric definition, theoretical framing, logon seeding"
+
+  - family-names: "Salmon"
+    given-names: "Sheldon K."
+    orcid: "https://orcid.org/0009-0005-8057-5115"
+    affiliation: "AionSystem — AI Reliability & AGI Architect"
+    city: "Evans Mills"
+    country: "US"
+    website: "https://aionsystem.github.io"
+    contribution: "Simulator build, STP seal integration, AION Constitutional Stack, repository architecture, infrastructure"
+
+repository-code: "https://github.com/AionSystem/QLCM-STP-INTERFERENCE"
+
+keywords:
+  - quantum language
+  - semantic coherence
+  - cryptographic verification
+  - sovereign trace protocol
+  - QLCM
+  - STP
+  - AION
+  - interference experiment
+  - entanglement index
+  - epistemic integrity
+  - independent research
+
+date-released: "2026-03-22"
+
+references:
+  - type: software
+    title: "Sovereign Trace Protocol (STP)"
+    authors:
+      - family-names: "Salmon"
+        given-names: "Sheldon K."
+    repository-code: "https://github.com/AionSystem/SOVEREIGN-TRACE-PROTOCOL"
+    doi: "10.5281/zenodo.18941392"
+
+  - type: website
+    title: "QLCM — Quantum Language & Consciousness Model"
+    authors:
+      - family-names: "Navarro Tovar"
+        given-names: "Osmary Lisbeth"
+        orcid: "https://orcid.org/0009-0004-3966-9497"
+    url: "https://ccuantica.com"
+    year: 2016
