@@ -15,7 +15,7 @@ This repository documents a controlled interference experiment between two indep
 
 **QLCM** — the Quantum Language & Consciousness Model, developed by Osmary Lisbeth Navarro Tovar over nine years, treats language as a quantum field where meaning exists in superposition until intention collapses it. It defines operators for semantic coherence (ÓC), non-locality (ÓN), and dimensional structuring (ÓD), and introduces Ei — a metric for quantum-like entanglement between logons (semantic units).
 
-**STP** — the Sovereign Trace Protocol, developed by Sheldon K. Salmon, is a cryptographic verification architecture for AI outputs. It creates a deterministic SHA-256 seal on semantic content, opens a GitHub issue as a public ledger entry, and permanently records the state of an assertion at the moment it was made.
+**STP / AION** — the Sovereign Trace Protocol, developed by Sheldon K. Salmon within the AION Constitutional Stack, is a cryptographic sovereignty and verification architecture for AI-generated assertions and semantic content. It creates a deterministic SHA-256 seal, opens a GitHub issue as a public ledger entry, and permanently records the state of an assertion across three civilizational time systems simultaneously.
 
 ### The Question
 
@@ -63,7 +63,7 @@ QLCM-STP-INTERFERENCE/
 | Role | Contributor | Contribution |
 |------|-------------|--------------|
 | QLCM Architecture | Osmary Lisbeth Navarro Tovar | Operators (ÓC, ÓN, ÓD), Ei metric, theoretical framing, logon seeding |
-| STP / Simulation | Sheldon K. Salmon | Simulator build, STP seal integration, infrastructure, repo architecture |
+| STP / AION / Simulation | Sheldon K. Salmon | Simulator build, STP seal integration, AION Constitutional Stack, infrastructure, repo architecture |
 
 Both contributors retain full sovereignty over their respective frameworks. This experiment does not constitute a merger of frameworks — it is an observation of interference between them.
 
@@ -78,7 +78,7 @@ Both contributors retain full sovereignty over their respective frameworks. This
 1. Choose or define a logon — a semantic seed from the `logons/` folder
 2. Apply a QLCM operator from the `operators/` folder (ÓC, ÓN, or ÓD)
 3. Record the pre-seal Ei measurement using Osmary's methodology
-4. Apply an STP seal — this creates a SHA-256 hash of the semantic content and opens a GitHub issue as a public ledger entry
+4. Apply an STP seal — this creates a SHA-256 hash of the semantic content and opens a GitHub issue as a public ledger entry across three time systems
 5. Record the post-seal Ei measurement
 6. Log the run using the [experiment-run issue template](.github/ISSUE_TEMPLATE/experiment-run.md)
 
@@ -106,16 +106,25 @@ Developed independently since 2016, QLCM maps linguistic communication as a quan
 | ÓN | Non-locality operator — activates non-local connections between logons |
 | ÓD | Dimensional operator — structures meaning across semantic dimensions |
 
-### STP (Sovereign Trace Protocol)
+---
 
-Developed within the AION Constitutional Stack, STP is a cryptographic sovereignty architecture for AI-generated assertions. At seal time:
+### STP / AION Constitutional Stack
 
-- A deterministic SHA-256 hash is computed from the semantic content
-- A GitHub issue is opened in a public ledger repository
-- The hash, timestamp, and Hebrew calendar date are recorded permanently
-- The seal cannot be retroactively altered — immutability is structural, not enforced
+Developed within the AION Constitutional Stack by Sheldon K. Salmon, STP is a cryptographic sovereignty architecture for AI outputs and semantic content. The stack treats certainty, provenance, and epistemic integrity as engineering problems — not philosophical ones. Core constructs:
 
-STP certification documentation: [CERTIFICATION.md](https://github.com/AionSystem/STP/blob/main/CERTIFICATION.md)
+| Construct | Description |
+|-----------|-------------|
+| Seal (FROZEN-2.0) | Deterministic SHA-256 cryptographic binding of semantic content at a specific moment. Immutable — the stamp function itself is frozen and never patched. |
+| Triple-time stamp | Every seal is bound simultaneously to Gregorian, Hebrew lunisolar (full dehiyot), and 13 Moon Dreamspell calendars. Not redundancy — a claim that significant moments deserve to be held in every major civilizational time system. |
+| Ledger | A public GitHub issue opened at seal time. The record cannot be retroactively altered — immutability is structural, not enforced by policy. |
+| Webeater link | Cryptographic binding between two sealed entities — links one SHA-256 seal to another, creating a provenance chain across assertions. |
+| EDS (Epistemic Debt Score) | 0–100 metric measuring AI epistemic integrity across five components. Public formula. Measures what an organization or system owes in unacknowledged uncertainty. |
+| Constitutional Stack | The Eight Laws of Robotics (Asimov Laws 1–3 + Salmon Laws 4–8) embedded as runtime enforcement constraints across all classification and verification processes. Law 9 is dark by design. |
+| ECF Tags | Epistemic Certainty Fingerprint — every claim tagged [D] Data, [R] Reasoned, [S] Strategic, or [?] Unverified. Certainty is declared, not assumed. |
+| M-NASCENT / M-MODERATE | Convergence state system — measures how far a framework or system is from deployment-grade certainty. Structural honesty about what is and is not verified. |
+| PAC (v1.1) | Prompt Alignment Coefficient — scores semantic coherence across five dimensions: intent clarity, context resonance, constraint geometry, register lock, and goal convergence. Maps directly to Hₛ. |
+
+STP repository and full documentation: [AionSystem/SOVEREIGN-TRACE-PROTOCOL](https://github.com/AionSystem/SOVEREIGN-TRACE-PROTOCOL)
 
 ---
 
@@ -129,11 +138,28 @@ STP certification documentation: [CERTIFICATION.md](https://github.com/AionSyste
 
 ---
 
+## Why These Two Architectures Converge
+
+QLCM and the AION Constitutional Stack were developed independently, in different countries, across different timescales. They arrived at structurally similar constructs:
+
+| QLCM | AION / STP | Convergent Structure |
+|------|-----------|----------------------|
+| Hₛ (semantic coherence) | PAC v1.1 (intent + context + goal alignment) | Measurable coherence between meanings |
+| INCS (non-locality) | Sister-watch / UNI field architecture | Connection that does not require proximity |
+| Ef (ethical integrity) | Constitutional Stack / Eight Laws | Preservation of ethics under transformation |
+| Logon (semantic seed) | Sealed assertion | The unit that carries meaning through time |
+| Superposition | M-NASCENT convergence state | Meaning / certainty in potential before collapse |
+| Ei (entanglement index) | ECF tag distribution / certainty ratio | Degree of connection maintained across a field |
+
+The interference experiment is designed to test whether these convergent structures interact — and if so, how.
+
+---
+
 ## License
 
 This work is licensed under [Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)](https://creativecommons.org/licenses/by-nc/4.0/).
 
-You are free to share and adapt the material for non-commercial purposes with appropriate attribution. Both frameworks (QLCM and STP) retain their individual intellectual property. This license covers the joint experimental work in this repository only.
+You are free to share and adapt the material for non-commercial purposes with appropriate attribution. Both frameworks (QLCM and STP/AION) retain their individual intellectual property. This license covers the joint experimental work in this repository only.
 
 ---
 
@@ -152,4 +178,3 @@ The AION Constitutional Stack — the infrastructure that makes STP possible.
 ---
 
 *Experiment initiated: March 2026 · Caracas, Venezuela × Evans Mills, New York*
-
