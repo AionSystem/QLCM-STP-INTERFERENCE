@@ -4,6 +4,8 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.PENDING.svg)](https://doi.org/10.5281/zenodo.PENDING)
 [![Repo Status](https://img.shields.io/badge/status-active%20experiment-brightgreen)]()
 [![STP Sealed](https://img.shields.io/badge/STP-Sovereign%20Trace%20Protocol-gold)]()
+[![ORCID — Osmary Navarro Tovar](https://img.shields.io/badge/ORCID-0009--0004--3966--9497-a6ce39?style=flat&logo=orcid&logoColor=white)](https://orcid.org/0009-0004-3966-9497)
+[![ORCID — Sheldon K. Salmon](https://img.shields.io/badge/ORCID-0009--0005--8057--5115-a6ce39?style=flat&logo=orcid&logoColor=white)](https://orcid.org/0009-0005-8057-5115)
 
 > *"Two architectures resolving the same problem from opposite poles — observing interference without forced fusion."*
 
