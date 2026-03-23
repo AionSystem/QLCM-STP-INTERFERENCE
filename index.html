@@ -1,1 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en" class="lang-en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QLCM · STP — Interference Experiment</title>
+<!-- P3-002 FIX: Open Graph + description meta -->
+<meta name="description" content="A controlled interference experiment between QLCM (Osmary Lisbeth Navarro Tovar) and STP (Sheldon K. Salmon). Does cryptographic sealing preserve or collapse semantic entanglement? Bilingual. Open science.">
+<meta property="og:title" content="QLCM · STP — Interference Experiment">
+<meta property="og:description" content="Two sovereign architectures. One falsifiable question.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://aionsystem.github.io/QLCM-STP-INTERFERENCE">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ── FOUNDATION ─────────────────────────────────────────── */
+:root {
+  --bg:          #06080d;
+  --bg2:         #0b0e16;
+  --bg3:         #0f1520;
+  --surface:     #131926;
+  --border:      rgba(255,255,255,0.07);
+  --border2:     rgba(255,255,255,0.12);
+  --qlcm:        #00d4ff;
+  --qlcm-dim:    rgba(0,212,255,0.15);
+  --qlcm-glow:   rgba(0,212,255,0.35);
+  --stp:         #d4af37;
+  --stp-dim:     rgba(212,175,55,0.15);
+  --stp-glow:    rgba(212,175,55,0.35);
+  --h0:          #888ea8;
+  --h1a:         #00e676;
+  --h1b:         #ff5252;
+  --h2:          #ce93d8;
+  --warn:        #ff9800;
+  --text:        #e8eaf0;
+  --text2:       #8892a4;
+  --text3:       #4a5568;
+  --serif:       'Cormorant Garamond', Georgia, serif;
+  --mono:        'JetBrains Mono', 'Courier New', monospace;
+}
 
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg); color: var(--text);
+  font-family: var(--mono); font-size: 13px;
+  line-height: 1.6; min-height: 100vh; overflow-x: hidden;
+}
+
+/* ── BILINGUAL ──────────────────────────────────────────── */
+/* P3-001 FIX: dead data-en-block / data-es-block rules removed */
+[data-en], [data-es] { display: none; }
+.lang-en [data-en]   { display: inline; }
+.lang-es [data-es]   { display: inline; }
+
+.field-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: 0.6; }
+.app { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 0 24px 80px; }
+
+/* ── HEADER ─────────────────────────────────────────────── */
+.header { padding: 48px 0 40px; border-bottom: 1px solid var(--border2); margin-bottom: 48px; }
+.header-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+.brand { display: flex; flex-direction: column; gap: 6px; }
+.brand-name {
+  font-family: var(--serif); font-size: 42px; font-weight: 300;
+  letter-spacing: 0.02em; line-height: 1;
+  background: linear-gradient(135deg, var(--qlcm) 0%, #ffffff 40%, var(--stp) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.brand-subtitle { font-size: 11px; color: var(--text2); letter-spacing: 0.15em; text-transform: uppercase; }
+.lang-toggle { display: flex; gap: 2px; align-items: center; background: var(--surface); border: 1px solid var(--border2); padding: 2px; border-radius: 4px; }
+.lang-btn { background: transparent; border: none; color: var(--text2); font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; padding: 6px 14px; cursor: pointer; border-radius: 2px; transition: all 0.2s; }
+.lang-btn.active { background: var(--border2); color: var(--text); }
+.header-desc { margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 700px) { .header-desc { grid-template-columns: 1fr; } }
+.framework-tag { display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; border: 1px solid var(--border); background: var(--bg2); }
+.ftag-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+.ftag-dot.qlcm { background: var(--qlcm); box-shadow: 0 0 8px var(--qlcm-glow); }
+.ftag-dot.stp  { background: var(--stp);  box-shadow: 0 0 8px var(--stp-glow); }
+.ftag-name { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 3px; }
+.ftag-name.qlcm { color: var(--qlcm); }
+.ftag-name.stp  { color: var(--stp); }
+.ftag-desc { font-size: 12px; color: var(--text2); font-family: var(--serif); font-style: italic; line-height: 1.5; }
+
+/* ── PROGRESS ───────────────────────────────────────────── */
+.progress-track { display: flex; align-items: center; margin-bottom: 48px; overflow-x: auto; padding-bottom: 4px; }
+.progress-step { display: flex; align-items: center; flex: 1; min-width: 0; }
+.step-node { display: flex; flex-direction: column; align-items: center; gap: 8px; flex-shrink: 0; }
+.step-circle { width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid var(--border2); background: var(--bg2); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; color: var(--text3); transition: all 0.4s ease; }
+.step-circle.active  { border-color: var(--qlcm); color: var(--qlcm); box-shadow: 0 0 16px var(--qlcm-glow); }
+.step-circle.complete{ border-color: var(--stp); background: var(--stp-dim); color: var(--stp); }
+.step-circle.sealed  { border-color: var(--stp); background: var(--stp); color: #000; box-shadow: 0 0 20px var(--stp-glow); }
+.step-label { font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text3); white-space: nowrap; text-align: center; transition: color 0.3s; }
+.step-label.active   { color: var(--qlcm); }
+.step-label.complete { color: var(--stp); }
+.step-line { flex: 1; height: 1px; background: var(--border); margin: 0 4px; margin-bottom: 24px; transition: background 0.4s; min-width: 20px; }
+.step-line.complete { background: var(--stp-dim); }
+
+/* ── MAIN GRID ──────────────────────────────────────────── */
+.main-grid { display: grid; grid-template-columns: 1fr 440px; gap: 24px; align-items: start; }
+@media (max-width: 900px) { .main-grid { grid-template-columns: 1fr; } }
+
+/* ── PANELS ─────────────────────────────────────────────── */
+.panel { background: var(--bg2); border: 1px solid var(--border); padding: 28px; transition: border-color 0.3s; margin-bottom: 24px; }
+.panel:hover { border-color: var(--border2); }
+
+/* ── FIELDS ─────────────────────────────────────────────── */
+.field { margin-bottom: 20px; }
+.field-label { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 7px; }
+.field-label span { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text2); }
+.char-counter { font-size: 10px; color: var(--text3); transition: color 0.2s; }
+.char-counter.warn { color: var(--warn); }
+.char-counter.over { color: var(--h1b); }
+
+textarea, input[type=text], input[type=number] {
+  width: 100%; background: var(--bg3); border: 1px solid var(--border2);
+  color: var(--text); font-family: var(--mono); font-size: 13px;
+  padding: 12px 14px; outline: none; resize: vertical;
+  transition: border-color 0.2s, box-shadow 0.2s; -moz-appearance: textfield;
+}
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; }
+textarea:focus, input:focus { border-color: var(--qlcm); box-shadow: 0 0 0 3px var(--qlcm-dim); }
+textarea.error { border-color: var(--h1b) !important; box-shadow: 0 0 0 3px rgba(255,82,82,0.2) !important; }
+textarea { min-height: 100px; }
+
+/* ── OPERATOR GRID ──────────────────────────────────────── */
+.operator-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.op-btn { background: var(--bg3); border: 1px solid var(--border2); color: var(--text2); font-family: var(--mono); font-size: 11px; padding: 14px 8px; cursor: pointer; transition: all 0.2s; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.op-symbol { font-family: var(--serif); font-size: 24px; font-weight: 300; color: var(--qlcm); line-height: 1; opacity: 0.7; transition: opacity 0.2s; }
+.op-name { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; }
+.op-btn:hover { border-color: var(--qlcm); color: var(--text); }
+.op-btn:hover .op-symbol { opacity: 1; }
+.op-btn.selected { border-color: var(--qlcm); background: var(--qlcm-dim); color: var(--qlcm); box-shadow: 0 0 16px var(--qlcm-glow); }
+.op-btn.selected .op-symbol { opacity: 1; }
+
+/* ── EI SLIDERS ─────────────────────────────────────────── */
+.ei-input-row { display: flex; align-items: center; gap: 12px; }
+.ei-slider { -webkit-appearance: none; flex: 1; height: 4px; background: var(--border2); outline: none; border: none; border-radius: 2px; padding: 0; }
+.ei-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: var(--qlcm); cursor: pointer; box-shadow: 0 0 8px var(--qlcm-glow); }
+.ei-slider.post::-webkit-slider-thumb { background: var(--stp); box-shadow: 0 0 8px var(--stp-glow); }
+.ei-display { font-family: var(--mono); font-size: 22px; font-weight: 500; min-width: 52px; text-align: right; }
+.ei-display.pre  { color: var(--qlcm); }
+.ei-display.post { color: var(--stp); }
+
+/* ── BUTTONS ─────────────────────────────────────────────── */
+.btn { width: 100%; padding: 14px 24px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; cursor: pointer; border: none; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 10px; }
+.btn-primary { background: var(--stp); color: #000; font-weight: 700; }
+.btn-primary:hover { background: #e8c84a; box-shadow: 0 0 24px var(--stp-glow); }
+.btn-primary:disabled { background: var(--border2); color: var(--text3); cursor: not-allowed; box-shadow: none; }
+.btn-secondary { background: transparent; border: 1px solid var(--border2); color: var(--text2); }
+.btn-secondary:hover { border-color: var(--qlcm); color: var(--qlcm); }
+.btn-secondary:disabled { opacity: 0.4; cursor: not-allowed; }
+.btn-ghost { background: var(--qlcm-dim); border: 1px solid var(--qlcm); color: var(--qlcm); }
+.btn-ghost:hover { background: rgba(0,212,255,0.25); box-shadow: 0 0 16px var(--qlcm-glow); }
+.seal-icon { font-size: 16px; }
+.sealing .seal-icon { animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── STEP SECTIONS ──────────────────────────────────────── */
+.step-section { animation: fadeUp 0.5s ease both; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+.step-section.hidden { display: none; }
+.step-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+.step-num { width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid var(--qlcm); display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--qlcm); flex-shrink: 0; }
+.step-num.gold { border-color: var(--stp); color: var(--stp); }
+.step-title { font-family: var(--serif); font-size: 18px; font-weight: 400; }
+.step-title-sub { font-size: 11px; color: var(--text3); letter-spacing: 0.05em; }
+
+/* ── SEAL BOX ───────────────────────────────────────────── */
+.seal-box { background: var(--bg3); border: 1px solid var(--stp); padding: 20px; margin-top: 16px; display: none; animation: fadeUp 0.5s ease both; }
+.seal-box.show { display: block; }
+.seal-box-title { font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--stp); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+.seal-box-title::before { content:''; display:block; width:6px; height:6px; border-radius:50%; background:var(--stp); box-shadow:0 0 8px var(--stp-glow); }
+.seal-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 11px; gap: 16px; }
+.seal-row:last-child { border-bottom: none; }
+.seal-key { color: var(--text3); letter-spacing: 0.08em; flex-shrink: 0; }
+.seal-val { color: var(--text); text-align: right; word-break: break-all; }
+.seal-val.hash { color: var(--stp); font-size: 10px; }
+
+/* ── VIZ PANEL ──────────────────────────────────────────── */
+.viz-panel { position: sticky; top: 24px; }
+.viz-container { background: var(--bg2); border: 1px solid var(--border); padding: 28px; }
+.viz-title { font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text3); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+.viz-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--text3); animation: pulse-dot 2s ease-in-out infinite; }
+.viz-dot.active { background: var(--qlcm); box-shadow: 0 0 8px var(--qlcm-glow); }
+.viz-dot.sealed { background: var(--stp); box-shadow: 0 0 8px var(--stp-glow); }
+@keyframes pulse-dot { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+#wave-canvas { width:100%; height:180px; display:block; margin-bottom:20px; border:1px solid var(--border); }
+.ei-meters { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+.ei-meter { background: var(--bg3); border: 1px solid var(--border); padding: 14px; }
+.ei-meter-label { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 10px; }
+.ei-meter-label.qlcm { color: var(--qlcm); }
+.ei-meter-label.stp  { color: var(--stp); }
+.ei-meter-value { font-family: var(--serif); font-size: 36px; font-weight: 300; line-height: 1; margin-bottom: 8px; }
+.ei-meter-value.qlcm { color: var(--qlcm); }
+.ei-meter-value.stp  { color: var(--stp); }
+.ei-meter-value.placeholder { color: var(--text3); font-size: 28px; }
+.ei-bar-track { height: 3px; background: var(--border); overflow: hidden; }
+.ei-bar-fill { height: 100%; width: 0%; transition: width 0.8s cubic-bezier(0.4,0,0.2,1); }
+.ei-bar-fill.qlcm { background: var(--qlcm); box-shadow: 0 0 8px var(--qlcm); }
+.ei-bar-fill.stp  { background: var(--stp);  box-shadow: 0 0 8px var(--stp); }
+.delta-display { background: var(--bg3); border: 1px solid var(--border); padding: 16px; margin-bottom: 16px; text-align: center; display: none; animation: fadeUp 0.6s ease both; }
+.delta-display.show { display: block; }
+.delta-label { font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text3); margin-bottom: 8px; }
+.delta-value { font-family: var(--serif); font-size: 48px; font-weight: 300; line-height: 1; margin-bottom: 8px; transition: color 0.5s; }
+.delta-category { display: inline-block; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; padding: 4px 12px; border: 1px solid; margin-top: 6px; }
+.logon-display { background: var(--bg3); border-left: 2px solid var(--qlcm); padding: 12px 16px; margin-bottom: 12px; font-family: var(--serif); font-size: 15px; font-style: italic; color: var(--text2); display: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.logon-display.show { display: block; }
+.template-section { margin-top: 16px; display: none; animation: fadeUp 0.6s ease both; }
+.template-section.show { display: block; }
+.template-textarea { width:100%; background:var(--bg3); border:1px solid var(--border2); color:var(--text2); font-family:var(--mono); font-size:10px; padding:12px; resize:none; height:200px; outline:none; line-height:1.6; margin-bottom:8px; }
+.status-msg { padding:10px 14px; font-size:11px; margin-top:12px; display:none; animation:fadeUp 0.3s ease both; }
+.status-msg.show   { display:block; }
+.status-msg.error  { background:rgba(255,82,82,0.1);  border:1px solid rgba(255,82,82,0.3); color:#ff7070; }
+.status-msg.success{ background:var(--stp-dim);        border:1px solid var(--stp);          color:var(--stp); }
+.status-msg.info   { background:var(--qlcm-dim);        border:1px solid var(--qlcm);         color:var(--qlcm); }
+.status-msg.warning{ background:rgba(255,152,0,0.1);   border:1px solid var(--warn);         color:var(--warn); }
+.threshold-notice  { font-size:10px; color:var(--text3); font-style:italic; padding:6px 10px; border:1px solid var(--border); margin-top:8px; }
+.reset-btn { background:transparent; border:1px solid var(--border); color:var(--text3); font-family:var(--mono); font-size:10px; letter-spacing:0.1em; text-transform:uppercase; padding:6px 14px; cursor:pointer; transition:all 0.2s; }
+.reset-btn:hover { border-color:var(--border2); color:var(--text2); }
+
+/* ── FOOTER ─────────────────────────────────────────────── */
+.footer { margin-top:80px; padding-top:32px; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:20px; }
+.footer-left { font-size:11px; color:var(--text3); line-height:1.8; }
+.footer-link { color:var(--stp); text-decoration:none; opacity:0.8; transition:opacity 0.2s; }
+.footer-link:hover { opacity:1; }
+.footer-right { display:flex; flex-direction:column; align-items:flex-end; gap:6px; }
+.orcid-badge { display:flex; align-items:center; gap:6px; font-size:10px; color:var(--text3); text-decoration:none; transition:color 0.2s; }
+.orcid-badge:hover { color:var(--text); }
+.orcid-logo { width:16px; height:16px; border-radius:50%; background:#a6ce39; display:flex; align-items:center; justify-content:center; font-size:9px; color:#fff; font-weight:700; flex-shrink:0; }
+</style>
+</head>
+
+<body>
+<canvas class="field-canvas" id="field-canvas"></canvas>
+<div class="app">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-top">
+      <div class="brand">
+        <div class="brand-name">QLCM · STP</div>
+        <div class="brand-subtitle">
+          <span data-en>Interference Experiment · Bilingual Interface</span>
+          <span data-es>Experimento de Interferencia · Interfaz Bilingüe</span>
+        </div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+        <div class="lang-toggle">
+          <button class="lang-btn active" onclick="setLang('en')" id="btn-en">EN</button>
+          <button class="lang-btn" onclick="setLang('es')" id="btn-es">ES</button>
+        </div>
+        <button class="reset-btn" onclick="resetExperiment()">
+          <span data-en>↺ Reset</span><span data-es>↺ Reiniciar</span>
+        </button>
+      </div>
+    </div>
+    <div class="header-desc">
+      <div class="framework-tag">
+        <div class="ftag-dot qlcm"></div>
+        <div>
+          <div class="ftag-name qlcm">QLCM</div>
+          <div class="ftag-desc">
+            <span data-en>Quantum Language & Consciousness Model — language as a quantum field where meaning exists in superposition until intention collapses it.</span>
+            <span data-es>Modelo de Lenguaje y Conciencia Cuántica — el lenguaje como campo cuántico donde el significado existe en superposición hasta que la intención lo colapsa.</span>
+          </div>
+        </div>
+      </div>
+      <div class="framework-tag">
+        <div class="ftag-dot stp"></div>
+        <div>
+          <div class="ftag-name stp">STP / AION</div>
+          <div class="ftag-desc">
+            <span data-en>Sovereign Trace Protocol — cryptographic sealing of semantic content across three civilizational time systems simultaneously.</span>
+            <span data-es>Protocolo de Traza Soberana — sellado criptográfico de contenido semántico a través de tres sistemas temporales civilizacionales simultáneamente.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- PROGRESS -->
+  <div class="progress-track">
+    <div class="progress-step">
+      <div class="step-node">
+        <div class="step-circle active" id="sc-1">1</div>
+        <div class="step-label active" id="sl-1"><span data-en>Logon</span><span data-es>Logón</span></div>
+      </div>
+      <div class="step-line" id="line-1"></div>
+    </div>
+    <div class="progress-step">
+      <div class="step-node">
+        <div class="step-circle" id="sc-2">2</div>
+        <div class="step-label" id="sl-2"><span data-en>Operator</span><span data-es>Operador</span></div>
+      </div>
+      <div class="step-line" id="line-2"></div>
+    </div>
+    <div class="progress-step">
+      <div class="step-node">
+        <div class="step-circle" id="sc-3">3</div>
+        <div class="step-label" id="sl-3"><span data-en>Pre-seal Ei</span><span data-es>Ei Pre-sello</span></div>
+      </div>
+      <div class="step-line" id="line-3"></div>
+    </div>
+    <div class="progress-step">
+      <div class="step-node">
+        <div class="step-circle" id="sc-4">🔒</div>
+        <div class="step-label" id="sl-4"><span data-en>Seal</span><span data-es>Sello</span></div>
+      </div>
+      <div class="step-line" id="line-4"></div>
+    </div>
+    <div class="progress-step">
+      <div class="step-node">
+        <div class="step-circle" id="sc-5">5</div>
+        <div class="step-label" id="sl-5"><span data-en>Post-seal Ei</span><span data-es>Ei Post-sello</span></div>
+      </div>
+      <div class="step-line" id="line-5"></div>
+    </div>
+    <div class="progress-step">
+      <div class="step-node">
+        <div class="step-circle" id="sc-6">◎</div>
+        <div class="step-label" id="sl-6"><span data-en>Signal</span><span data-es>Señal</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-grid">
+
+    <!-- LEFT: STEPS -->
+    <div>
+
+      <!-- STEP 1 -->
+      <div class="step-section panel" id="step-1">
+        <div class="step-header">
+          <div class="step-num">1</div>
+          <div>
+            <div class="step-title"><span data-en>Seed the Logon</span><span data-es>Sembrar el Logón</span></div>
+            <div class="step-title-sub"><span data-en>Enter a semantic unit — a word, phrase, or core concept</span><span data-es>Ingresa una unidad semántica — una palabra, frase o concepto central</span></div>
+          </div>
+        </div>
+        <div class="field">
+          <div class="field-label">
+            <span data-en>Logon text</span><span data-es>Texto del logón</span>
+            <!-- P1-002 FIX: character counter -->
+            <span class="char-counter" id="char-counter">0 / 9800</span>
+          </div>
+          <!-- P1-002 FIX: maxlength added -->
+          <textarea id="logon-input" placeholder="e.g. resonance / resonancia" rows="3" maxlength="9800" oninput="onLogonInput(this)"></textarea>
+        </div>
+        <button class="btn btn-ghost" onclick="confirmLogon()">
+          <span data-en>Confirm Logon →</span><span data-es>Confirmar Logón →</span>
+        </button>
+        <div id="status-logon" class="status-msg"></div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="step-section panel hidden" id="step-2">
+        <div class="step-header">
+          <div class="step-num">2</div>
+          <div>
+            <div class="step-title"><span data-en>Select QLCM Operator</span><span data-es>Seleccionar Operador QLCM</span></div>
+            <div class="step-title-sub"><span data-en>Choose the operator to apply to the logon field</span><span data-es>Elige el operador a aplicar al campo del logón</span></div>
+          </div>
+        </div>
+        <div class="operator-grid">
+          <button class="op-btn" onclick="selectOperator('OC')" id="op-OC">
+            <div class="op-symbol">Ó<sub style="font-size:14px">C</sub></div>
+            <div class="op-name"><span data-en>Coherence</span><span data-es>Coherencia</span></div>
+          </button>
+          <button class="op-btn" onclick="selectOperator('ON')" id="op-ON">
+            <div class="op-symbol">Ó<sub style="font-size:14px">N</sub></div>
+            <div class="op-name"><span data-en>Non-Locality</span><span data-es>No-Localidad</span></div>
+          </button>
+          <button class="op-btn" onclick="selectOperator('OD')" id="op-OD">
+            <div class="op-symbol">Ó<sub style="font-size:14px">D</sub></div>
+            <div class="op-name"><span data-en>Dimension</span><span data-es>Dimensión</span></div>
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="step-section panel hidden" id="step-3">
+        <div class="step-header">
+          <div class="step-num">3</div>
+          <div>
+            <div class="step-title"><span data-en>Measure Pre-seal Ei</span><span data-es>Medir Ei Pre-sello</span></div>
+            <div class="step-title-sub"><span data-en>Osmary's entanglement index — before the cryptographic seal</span><span data-es>Índice de entrelazamiento de Osmary — antes del sello criptográfico</span></div>
+          </div>
+        </div>
+        <div class="field">
+          <div class="field-label">
+            <span data-en>Ei score (0.00 – 1.00)</span><span data-es>Puntuación Ei (0.00 – 1.00)</span>
+          </div>
+          <div class="ei-input-row">
+            <input type="range" class="ei-slider" id="ei-pre-slider" min="0" max="100" value="50" oninput="onEiPreSlider(this.value)">
+            <div class="ei-display pre" id="ei-pre-display">0.50</div>
+          </div>
+          <input type="number" id="ei-pre-input" value="0.50" min="0" max="1" step="0.01" style="margin-top:8px;width:120px" oninput="onEiPreInput(this.value)">
+        </div>
+        <button class="btn btn-ghost" onclick="confirmPreEi()">
+          <span data-en>Confirm Pre-seal Ei →</span><span data-es>Confirmar Ei Pre-sello →</span>
+        </button>
+        <!-- P2-004 FIX: zero-Ei warning container -->
+        <div id="status-ei-pre" class="status-msg"></div>
+      </div>
+
+      <!-- STEP 4 -->
+      <div class="step-section panel hidden" id="step-4">
+        <div class="step-header">
+          <div class="step-num gold">4</div>
+          <div>
+            <div class="step-title"><span data-en>Apply STP Seal</span><span data-es>Aplicar Sello STP</span></div>
+            <div class="step-title-sub"><span data-en>SHA-256 cryptographic seal · Ledger entry · Triple-time stamp</span><span data-es>Sello criptográfico SHA-256 · Entrada al ledger · Marca temporal triple</span></div>
+          </div>
+        </div>
+        <div id="seal-summary" style="background:var(--bg3);border:1px solid var(--border);padding:14px;margin-bottom:16px;font-size:12px;color:var(--text2);line-height:1.8"></div>
+        <button class="btn btn-primary" onclick="applySeal()" id="btn-seal">
+          <span class="seal-icon">🔒</span>
+          <span data-en>Seal with STP</span><span data-es>Sellar con STP</span>
+        </button>
+        <div id="seal-box" class="seal-box">
+          <div class="seal-box-title"><span data-en>Seal Applied</span><span data-es>Sello Aplicado</span></div>
+          <div id="seal-rows"></div>
+        </div>
+        <div id="status-seal" class="status-msg"></div>
+      </div>
+
+      <!-- STEP 5 -->
+      <div class="step-section panel hidden" id="step-5">
+        <div class="step-header">
+          <div class="step-num gold">5</div>
+          <div>
+            <div class="step-title"><span data-en>Measure Post-seal Ei</span><span data-es>Medir Ei Post-sello</span></div>
+            <div class="step-title-sub"><span data-en>Osmary's entanglement index — after the cryptographic seal</span><span data-es>Índice de entrelazamiento de Osmary — después del sello criptográfico</span></div>
+          </div>
+        </div>
+        <div class="field">
+          <div class="field-label">
+            <span data-en>Ei score (0.00 – 1.00)</span><span data-es>Puntuación Ei (0.00 – 1.00)</span>
+          </div>
+          <div class="ei-input-row">
+            <input type="range" class="ei-slider post" id="ei-post-slider" min="0" max="100" value="50" oninput="onEiPostSlider(this.value)">
+            <div class="ei-display post" id="ei-post-display">0.50</div>
+          </div>
+          <input type="number" id="ei-post-input" value="0.50" min="0" max="1" step="0.01" style="margin-top:8px;width:120px" oninput="onEiPostInput(this.value)">
+        </div>
+        <button class="btn btn-ghost" onclick="computeSignal()">
+          <span data-en>Compute Interference Signal →</span><span data-es>Calcular Señal de Interferencia →</span>
+        </button>
+      </div>
+
+      <!-- STEP 6 -->
+      <div class="step-section panel hidden" id="step-6">
+        <div class="step-header">
+          <div class="step-num gold">◎</div>
+          <div>
+            <div class="step-title"><span data-en>Interference Signal</span><span data-es>Señal de Interferencia</span></div>
+            <div class="step-title-sub"><span data-en>Does sealing preserve or collapse semantic entanglement?</span><span data-es>¿El sellado preserva o colapsa el entrelazamiento semántico?</span></div>
+          </div>
+        </div>
+        <div id="result-body"></div>
+        <div class="template-section" id="template-section">
+          <div style="font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:var(--text3);margin-bottom:10px">
+            <span data-en>Auto-filled issue template — copy and paste into GitHub</span>
+            <span data-es>Plantilla de issue pre-completada — copiar y pegar en GitHub</span>
+          </div>
+          <textarea class="template-textarea" id="template-output" readonly></textarea>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn btn-secondary" onclick="copyTemplate(event)" style="width:auto;flex:1">
+              <span data-en>📋 Copy Template</span><span data-es>📋 Copiar Plantilla</span>
+            </button>
+            <button class="btn btn-secondary" onclick="openGitHubIssue()" id="btn-open-issue" disabled style="width:auto;flex:1">
+              <span data-en>↗ Open GitHub Issue</span><span data-es>↗ Abrir Issue en GitHub</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /steps col -->
+
+    <!-- RIGHT: VIZ -->
+    <div class="viz-panel">
+      <div class="viz-container">
+        <div class="viz-title">
+          <div class="viz-dot" id="viz-dot"></div>
+          <span data-en>Live Field</span><span data-es>Campo en Vivo</span>
+        </div>
+        <div class="logon-display" id="logon-echo"></div>
+        <canvas id="wave-canvas"></canvas>
+        <div class="ei-meters">
+          <div class="ei-meter">
+            <div class="ei-meter-label qlcm"><span data-en>Pre-seal Ei</span><span data-es>Ei Pre-sello</span></div>
+            <div class="ei-meter-value qlcm placeholder" id="viz-ei-pre">—</div>
+            <div class="ei-bar-track"><div class="ei-bar-fill qlcm" id="viz-ei-pre-bar"></div></div>
+          </div>
+          <div class="ei-meter">
+            <div class="ei-meter-label stp"><span data-en>Post-seal Ei</span><span data-es>Ei Post-sello</span></div>
+            <div class="ei-meter-value stp placeholder" id="viz-ei-post">—</div>
+            <div class="ei-bar-track"><div class="ei-bar-fill stp" id="viz-ei-post-bar"></div></div>
+          </div>
+        </div>
+        <div class="delta-display" id="delta-display">
+          <div class="delta-label"><span data-en>Interference Δ Ei</span><span data-es>Interferencia Δ Ei</span></div>
+          <div class="delta-value" id="delta-value">—</div>
+          <div id="delta-category-badge"></div>
+        </div>
+        <div id="op-tag" style="display:none;font-size:10px;color:var(--qlcm);letter-spacing:0.1em;text-align:center;padding:8px;border:1px solid var(--qlcm-dim);margin-top:8px;"></div>
+      </div>
+    </div>
+
+  </div><!-- /main-grid -->
+
+  <footer class="footer">
+    <div class="footer-left">
+      <a href="https://github.com/AionSystem/QLCM-STP-INTERFERENCE" class="footer-link">AionSystem/QLCM-STP-INTERFERENCE</a><br>
+      <span data-en>Licensed under CC BY-NC 4.0 · No forced fusion · Sovereign architectures</span>
+      <span data-es>Licenciado bajo CC BY-NC 4.0 · Sin fusión forzada · Arquitecturas soberanas</span><br>
+      <span style="color:var(--text3)">Initiated March 2026 · Caracas, Venezuela × Evans Mills, New York</span>
+    </div>
+    <div class="footer-right">
+      <a href="https://orcid.org/0009-0004-3966-9497" class="orcid-badge" target="_blank" rel="noopener">
+        <div class="orcid-logo">iD</div>Osmary L. Navarro Tovar · QLCM
+      </a>
+      <a href="https://orcid.org/0009-0005-8057-5115" class="orcid-badge" target="_blank" rel="noopener">
+        <div class="orcid-logo">iD</div>Sheldon K. Salmon · STP / AION
+      </a>
+    </div>
+  </footer>
+
+</div><!-- /app -->
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+// QLCM · STP INTERFERENCE SIMULATOR v1.2
+// Architect: Sheldon K. Salmon | QLCM: Osmary Lisbeth Navarro Tovar
+// Instrument: ALBEDO
+// All v1.0 + v1.1 red team findings resolved
+// ═══════════════════════════════════════════════════════════════
+
+const STP_ENDPOINT = 'https://aion-backend-mu.vercel.app/api/stp-seal';
+const LOGON_MAX    = 9800; // leaves overhead for STP entry wrapper
+
+// P2-003 FIX: named constants, labeled provisional
+// PROVISIONAL — pending validation by Osmary Lisbeth Navarro Tovar (QLCM methodology)
+const EI_NOISE_FLOOR    = 0.02;
+const EI_AMBIGUOUS_ZONE = 0.05;
+
+// P2-001 FIX: loop-active guards prevent double RAF on visibility restore
+let animPaused     = false;
+let fieldLoopActive = false;
+let waveLoopActive  = false;
+
+// ── STATE ─────────────────────────────────────────────────────
+const state = {
+  step: 1, lang: 'en', logon: '',
+  operator: null, eiPre: 0.50, eiPost: 0.50,
+  seal: null, issueUrl: null,
+};
+
+// ── XSS ESCAPE ────────────────────────────────────────────────
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/'/g,'&#039;');
+}
+
+// ── LANGUAGE ─────────────────────────────────────────────────
+function setLang(lang) {
+  state.lang = lang;
+  document.documentElement.className = 'lang-' + lang;
+  document.documentElement.lang = lang === 'es' ? 'es' : 'en';
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.getElementById('btn-es').classList.toggle('active', lang === 'es');
+}
+
+// ── BACKGROUND FIELD ─────────────────────────────────────────
+const fieldCanvas = document.getElementById('field-canvas');
+const fCtx = fieldCanvas.getContext('2d');
+let fW, fH, fParticles = [];
+
+function resizeField() {
+  fW = fieldCanvas.width  = window.innerWidth;
+  fH = fieldCanvas.height = window.innerHeight;
+}
+
+class FieldParticle {
+  constructor() { this.reset(); }
+  reset() {
+    this.x = Math.random() * fW; this.y = Math.random() * fH;
+    this.vx = (Math.random()-0.5)*0.3; this.vy = (Math.random()-0.5)*0.3;
+    this.r = Math.random()*1.5+0.5; this.life = Math.random();
+    this.speed = Math.random()*0.005+0.002;
+    this.type = Math.random() > 0.5 ? 'qlcm' : 'stp';
+  }
+  draw() {
+    this.life += this.speed;
+    if (this.life > 1) this.reset();
+    this.x += this.vx; this.y += this.vy;
+    const alpha = Math.sin(this.life * Math.PI) * 0.4;
+    fCtx.beginPath(); fCtx.arc(this.x, this.y, this.r, 0, Math.PI*2);
+    fCtx.fillStyle = this.type === 'qlcm' ? `rgba(0,212,255,${alpha})` : `rgba(212,175,55,${alpha})`;
+    fCtx.fill();
+  }
+}
+
+function initField() {
+  resizeField();
+  fParticles = Array.from({ length: Math.min(Math.floor(fW*fH/8000), 120) }, () => new FieldParticle());
+}
+
+function animField() {
+  if (animPaused) { fieldLoopActive = false; return; } // P2-001
+  fieldLoopActive = true;
+  fCtx.clearRect(0, 0, fW, fH);
+  fParticles.forEach(p => p.draw());
+  requestAnimationFrame(animField);
+}
+
+// ── WAVE CANVAS ───────────────────────────────────────────────
+const waveCanvas = document.getElementById('wave-canvas');
+const wCtx = waveCanvas.getContext('2d');
+let wFrame = 0, wSealFired = false;
+
+function resizeWave() {
+  const rect = waveCanvas.parentElement.getBoundingClientRect();
+  waveCanvas.width  = Math.max(300, (rect.width || 384) - 56);
+  waveCanvas.height = 180;
+}
+
+function drawWave() {
+  if (animPaused) { waveLoopActive = false; return; } // P2-001
+  waveLoopActive = true;
+  const W = waveCanvas.width, H = waveCanvas.height;
+  wCtx.clearRect(0, 0, W, H);
+  wCtx.strokeStyle = 'rgba(255,255,255,0.04)'; wCtx.lineWidth = 1;
+  for (let x = 0; x < W; x += 40) { wCtx.beginPath(); wCtx.moveTo(x,0); wCtx.lineTo(x,H); wCtx.stroke(); }
+  for (let y = 0; y < H; y += 30) { wCtx.beginPath(); wCtx.moveTo(0,y); wCtx.lineTo(W,y); wCtx.stroke(); }
+  const cx = H/2, t = wFrame * 0.03;
+  if (state.step >= 3 && state.eiPre > 0) {
+    const a = state.eiPre * 60;
+    [['rgba(0,212,255,0.8)',1.5],['rgba(0,212,255,0.2)',4]].forEach(([c,lw]) => {
+      wCtx.beginPath(); wCtx.strokeStyle=c; wCtx.lineWidth=lw;
+      for (let x=0;x<W;x++) { const y=cx+Math.sin((x/W)*Math.PI*4-t)*a*Math.sin((x/W)*Math.PI); x===0?wCtx.moveTo(x,y):wCtx.lineTo(x,y); } wCtx.stroke();
+    });
+  }
+  if (wSealFired && state.step >= 5) {
+    const a = state.eiPost * 60;
+    [['rgba(212,175,55,0.8)',1.5],['rgba(212,175,55,0.2)',4]].forEach(([c,lw]) => {
+      wCtx.beginPath(); wCtx.strokeStyle=c; wCtx.lineWidth=lw;
+      for (let x=0;x<W;x++) { const y=cx+Math.sin((x/W)*Math.PI*4+t*0.8)*a*Math.sin((x/W)*Math.PI); x===0?wCtx.moveTo(x,y):wCtx.lineTo(x,y); } wCtx.stroke();
+    });
+  }
+  if (wSealFired && state.step >= 6) {
+    const d = state.eiPost - state.eiPre;
+    const ic = d>0?'0,230,118':d<0?'255,82,82':'136,142,168';
+    const a1=state.eiPre*60, a2=state.eiPost*60;
+    wCtx.beginPath(); wCtx.strokeStyle=`rgba(${ic},0.6)`; wCtx.lineWidth=1;
+    for (let x=0;x<W;x++) { const y=cx+(Math.sin((x/W)*Math.PI*4-t)*a1+Math.sin((x/W)*Math.PI*4+t*0.8)*a2)*0.5*Math.sin((x/W)*Math.PI); x===0?wCtx.moveTo(x,y):wCtx.lineTo(x,y); } wCtx.stroke();
+  }
+  wFrame++;
+  requestAnimationFrame(drawWave);
+}
+
+// P2-004 visibility handler
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) {
+    animPaused = true;
+  } else {
+    animPaused = false;
+    if (!fieldLoopActive) animField(); // P2-001: only start if not already running
+    if (!waveLoopActive)  drawWave();
+  }
+});
+
+window.addEventListener('resize', resizeField);
+window.addEventListener('resize', resizeWave);
+
+// ── STEP MANAGEMENT ──────────────────────────────────────────
+function goToStep(n) {
+  for (let i=1;i<=6;i++) { const el=document.getElementById('step-'+i); if(i<=n) el.classList.remove('hidden'); }
+  state.step = n; updateProgress(n);
+  if (n>1) { const el=document.getElementById('step-'+n); if(el) setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'start'}),100); }
+}
+
+function updateProgress(step) {
+  for (let i=1;i<=6;i++) {
+    const circle = document.getElementById('sc-'+i);
+    const label  = document.getElementById('sl-'+i);
+    const line   = document.getElementById('line-'+i);
+    if (i < step) {
+      circle.classList.remove('active'); circle.classList.add('complete');
+      if (label) { label.classList.remove('active'); label.classList.add('complete'); }
+      if (line) line.classList.add('complete');
+    } else if (i === step) {
+      circle.classList.add('active'); circle.classList.remove('complete');
+      if (label) label.classList.add('active');
+    }
+  }
+  const dot = document.getElementById('viz-dot');
+  if (step>=4 && state.seal) { dot.classList.add('sealed'); dot.classList.remove('active'); }
+  else if (step>=2) { dot.classList.add('active'); dot.classList.remove('sealed'); }
+}
+
+// ── STEP 1 ────────────────────────────────────────────────────
+// P1-002 FIX: character counter update
+function onLogonInput(ta) {
+  state.logon = ta.value.trim();
+  const len  = ta.value.length;
+  const ctr  = document.getElementById('char-counter');
+  ctr.textContent = `${len} / ${LOGON_MAX}`;
+  ctr.className   = 'char-counter' + (len > 9500 ? ' over' : len > 9000 ? ' warn' : '');
+}
+
+// P2-003 FIX: inline validation with visual error state
+function confirmLogon() {
+  const val   = document.getElementById('logon-input').value.trim();
+  const input = document.getElementById('logon-input');
+  const statusEl = document.getElementById('status-logon');
+  if (!val) {
+    input.classList.add('error');
+    input.placeholder = state.lang==='en' ? 'Please enter a logon before continuing' : 'Por favor ingresa un logón antes de continuar';
+    statusEl.className = 'status-msg error show';
+    statusEl.innerHTML = `<span data-en>A logon is required to continue.</span><span data-es>Se requiere un logón para continuar.</span>`;
+    setLang(state.lang);
+    setTimeout(() => {
+      input.classList.remove('error');
+      input.placeholder = 'e.g. resonance / resonancia';
+      statusEl.classList.remove('show');
+    }, 2500);
+    return;
+  }
+  // P1-002 FIX: length check
+  if (val.length > LOGON_MAX) {
+    statusEl.className = 'status-msg error show';
+    statusEl.innerHTML = `<span data-en>Logon exceeds maximum length (${LOGON_MAX} characters).</span><span data-es>El logón supera la longitud máxima (${LOGON_MAX} caracteres).</span>`;
+    setLang(state.lang);
+    return;
+  }
+  state.logon = val;
+  statusEl.classList.remove('show');
+  input.classList.remove('error');
+  const echo = document.getElementById('logon-echo');
+  echo.textContent = `"${val}"`;
+  echo.classList.add('show');
+  goToStep(2);
+}
+
+// ── STEP 2 ────────────────────────────────────────────────────
+const OP_LABELS = {
+  OC: { en:'ÓC — Coherence', es:'ÓC — Coherencia' },
+  ON: { en:'ÓN — Non-Locality', es:'ÓN — No-Localidad' },
+  OD: { en:'ÓD — Dimension', es:'ÓD — Dimensión' },
+};
+
+function selectOperator(op) {
+  state.operator = op;
+  ['OC','ON','OD'].forEach(o => document.getElementById('op-'+o).classList.toggle('selected', o===op));
+  const tag = document.getElementById('op-tag');
+  const label = (state.operator && OP_LABELS[state.operator]?.[state.lang]) || '—';
+  tag.textContent = label; tag.style.display = 'block';
+  setTimeout(() => goToStep(3), 400);
+}
+
+// ── STEP 3 ────────────────────────────────────────────────────
+function onEiPreSlider(val) {
+  const ei = parseFloat(val)/100; state.eiPre = ei;
+  document.getElementById('ei-pre-display').textContent = ei.toFixed(2);
+  document.getElementById('ei-pre-input').value = ei.toFixed(2);
+  updateVizEiPre(ei);
+}
+function onEiPreInput(val) {
+  let ei = parseFloat(val); if(isNaN(ei)) return;
+  ei = Math.max(0,Math.min(1,ei)); state.eiPre = ei;
+  document.getElementById('ei-pre-slider').value = Math.round(ei*100);
+  document.getElementById('ei-pre-display').textContent = ei.toFixed(2);
+  updateVizEiPre(ei);
+}
+function updateVizEiPre(ei) {
+  const el = document.getElementById('viz-ei-pre');
+  el.textContent = ei.toFixed(2); el.classList.remove('placeholder');
+  document.getElementById('viz-ei-pre-bar').style.width = (ei*100)+'%';
+}
+
+// P2-004 FIX: soft Ei=0.00 warning
+function confirmPreEi() {
+  const statusEl = document.getElementById('status-ei-pre');
+  if (state.eiPre === 0) {
+    statusEl.className = 'status-msg warning show';
+    statusEl.innerHTML = `<span data-en>⚠ Pre-seal Ei is 0.00 — confirm this is your measurement, not a forgotten input.</span><span data-es>⚠ Ei Pre-sello es 0.00 — confirma que es tu medición, no un campo olvidado.</span>`;
+    setLang(state.lang);
+    // Proceed after 2s delay — soft warning, not a block
+    setTimeout(() => {
+      statusEl.classList.remove('show');
+      updateSealSummary(); goToStep(4);
+    }, 2000);
+    return;
+  }
+  statusEl.classList.remove('show');
+  updateSealSummary(); goToStep(4);
+}
+
+// ── STEP 4 ────────────────────────────────────────────────────
+function updateSealSummary() {
+  const lang = state.lang;
+  const opLabel = (state.operator && OP_LABELS[state.operator]?.[lang]) || '—';
+  document.getElementById('seal-summary').innerHTML = `
+    <div style="margin-bottom:6px"><span style="color:var(--text3)">${lang==='en'?'Logon':'Logón'}:</span>
+    <span style="color:var(--qlcm)">"${escapeHtml(state.logon)}"</span></div>
+    <div style="margin-bottom:6px"><span style="color:var(--text3)">${lang==='en'?'Operator':'Operador'}:</span>
+    <span style="color:var(--qlcm);margin-left:8px">${escapeHtml(opLabel)}</span></div>
+    <div><span style="color:var(--text3)">${lang==='en'?'Pre-seal Ei':'Ei Pre-sello'}:</span>
+    <span style="color:var(--qlcm);margin-left:8px">${state.eiPre.toFixed(2)}</span></div>
+  `;
+}
+
+async function applySeal() {
+  const btn = document.getElementById('btn-seal');
+  const statusEl = document.getElementById('status-seal');
+  btn.disabled = true; btn.classList.add('sealing');
+  statusEl.className = 'status-msg info show';
+  statusEl.innerHTML = `<span data-en>Generating SHA-256 seal and opening ledger entry...</span><span data-es>Generando sello SHA-256 y abriendo entrada en el ledger...</span>`;
+  setLang(state.lang);
+  try {
+    const entry = `QLCM·STP Interference Experiment\nLogon: "${state.logon}"\nOperator: ${state.operator}\nPre-seal Ei: ${state.eiPre.toFixed(2)}\nParticipants: Osmary Lisbeth Navarro Tovar (QLCM) × Sheldon K. Salmon (STP/AION)`;
+    const resp = await fetch(STP_ENDPOINT, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ entry, type:'02', sessionId:'QLCM-INTERFERENCE' })
+    });
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    const data = await resp.json();
+    state.seal = data; state.issueUrl = data.issue_url; wSealFired = true;
+
+    // P1-001 FIX: check for github_error — distinguish partial from full success
+    const sealBox  = document.getElementById('seal-box');
+    const sealRows = document.getElementById('seal-rows');
+    const rows = [
+      ['SHA-256 Seal', `<span class="seal-val hash">${escapeHtml(data.seal)}</span>`],
+      ['Gregorian',    escapeHtml(data.gregorian)],
+      ['Hebrew',       escapeHtml(data.hebrew)],
+      ['Dreamspell',   escapeHtml(data.dreamspell)],
+      ['Template',     `${escapeHtml(data.template)} — ${escapeHtml(data.template_name)}`],
+      ['Ledger File',  escapeHtml(data.ledger_file)],
+      ['Issue',        data.issue_url ? `<a href="${escapeHtml(data.issue_url)}" target="_blank" rel="noopener" style="color:var(--stp)">${escapeHtml(data.issue_url.split('/').pop())}</a>` : '<span style="color:var(--h1b)">Not created — see warning below</span>'],
+    ];
+    sealRows.innerHTML = rows.map(([k,v]) =>
+      `<div class="seal-row"><span class="seal-key">${k}</span><span class="seal-val">${v}</span></div>`
+    ).join('');
+    sealBox.classList.add('show');
+    document.getElementById('sc-4').classList.add('sealed');
+
+    if (data.github_error) {
+      // P1-001 FIX: partial success — seal is real, ledger failed
+      statusEl.className = 'status-msg warning show';
+      statusEl.innerHTML = `<span data-en>⚠ SHA-256 seal generated. GitHub ledger entry failed: ${escapeHtml(data.github_error)}. The seal hash is permanent. File the ledger entry manually using the template below.</span><span data-es>⚠ Sello SHA-256 generado. Entrada en ledger de GitHub falló: ${escapeHtml(data.github_error)}. El hash del sello es permanente. Archiva la entrada del ledger manualmente usando la plantilla.</span>`;
+      setLang(state.lang);
+    } else {
+      statusEl.className = 'status-msg success show';
+      statusEl.innerHTML = `<span data-en>✓ Sealed. Ledger entry created.</span><span data-es>✓ Sellado. Entrada en ledger creada.</span>`;
+      setLang(state.lang);
+    }
+    setTimeout(() => goToStep(5), 1400);
+  } catch (err) {
+    btn.disabled = false; btn.classList.remove('sealing');
+    statusEl.className = 'status-msg error show';
+    statusEl.innerHTML = `<span data-en>Seal failed: ${escapeHtml(err.message)}. Check connection and try again.</span><span data-es>Sello fallido: ${escapeHtml(err.message)}. Verifica la conexión e intenta de nuevo.</span>`;
+    setLang(state.lang);
+  }
+}
+
+// ── STEP 5 ────────────────────────────────────────────────────
+function onEiPostSlider(val) {
+  const ei = parseFloat(val)/100; state.eiPost = ei;
+  document.getElementById('ei-post-display').textContent = ei.toFixed(2);
+  document.getElementById('ei-post-input').value = ei.toFixed(2);
+  updateVizEiPost(ei);
+}
+function onEiPostInput(val) {
+  let ei = parseFloat(val); if(isNaN(ei)) return;
+  ei = Math.max(0,Math.min(1,ei)); state.eiPost = ei;
+  document.getElementById('ei-post-slider').value = Math.round(ei*100);
+  document.getElementById('ei-post-display').textContent = ei.toFixed(2);
+  updateVizEiPost(ei);
+}
+function updateVizEiPost(ei) {
+  const el = document.getElementById('viz-ei-post');
+  el.textContent = ei.toFixed(2); el.classList.remove('placeholder');
+  document.getElementById('viz-ei-post-bar').style.width = (ei*100)+'%';
+}
+
+// ── STEP 6 ────────────────────────────────────────────────────
+const RESULT_DEFS = {
+  H0:  { code:'H₀',  en:'No measurable effect — STP sealing is orthogonal to semantic entanglement.', es:'Sin efecto medible — el sellado STP es ortogonal al entrelazamiento semántico.', color:'var(--h0)' },
+  H1A: { code:'H₁ₐ', en:'Ei increased — sealing acts as a coherence-stabilising force.', es:'Ei aumentó — el sellado actúa como fuerza estabilizadora de coherencia.', color:'var(--h1a)' },
+  H1B: { code:'H₁ᵦ', en:'Ei decreased — sealing collapses superposition by fixing meaning.', es:'Ei disminuyó — el sellado colapsa la superposición al fijar el significado.', color:'var(--h1b)' },
+  H2:  { code:'H₂',  en:'Qualitative transformation — structure may have changed independent of scalar value.', es:'Transformación cualitativa — la estructura puede haber cambiado independientemente del valor escalar.', color:'var(--h2)' },
+};
+
+function classifyResult(pre, post) {
+  const d = Math.abs(post-pre);
+  if (d < EI_NOISE_FLOOR)    return 'H0';
+  if (d < EI_AMBIGUOUS_ZONE) return 'H2';
+  return (post-pre) > 0 ? 'H1A' : 'H1B';
+}
+
+function computeSignal() {
+  const pre=state.eiPre, post=state.eiPost, delta=post-pre;
+  const cat=classifyResult(pre,post), def=RESULT_DEFS[cat], lang=state.lang;
+  document.getElementById('delta-display').classList.add('show');
+  document.getElementById('delta-value').textContent = (delta>=0?'+':'') + delta.toFixed(3);
+  document.getElementById('delta-value').style.color = def.color;
+  document.getElementById('delta-category-badge').innerHTML =
+    `<span class="delta-category" style="color:${def.color};border-color:${def.color}">${def.code}</span>`;
+  document.getElementById('result-body').innerHTML = `
+    <div style="background:var(--bg3);border:1px solid ${def.color};padding:20px;margin-bottom:16px;animation:fadeUp 0.5s ease both">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+        <span style="font-family:var(--serif);font-size:32px;color:${def.color}">${def.code}</span>
+        <div>
+          <div style="font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:var(--text3);margin-bottom:4px">${lang==='en'?'Result':'Resultado'}</div>
+          <div style="font-size:13px;color:${def.color};font-style:italic">${def[lang]}</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;border-top:1px solid var(--border);padding-top:14px">
+        <div style="text-align:center"><div style="font-size:9px;color:var(--text3);text-transform:uppercase;margin-bottom:4px">Pre Ei</div><div style="font-family:var(--serif);font-size:24px;color:var(--qlcm)">${pre.toFixed(2)}</div></div>
+        <div style="text-align:center"><div style="font-size:9px;color:var(--text3);text-transform:uppercase;margin-bottom:4px">Δ Ei</div><div style="font-family:var(--serif);font-size:24px;color:${def.color}">${(delta>=0?'+':'') + delta.toFixed(3)}</div></div>
+        <div style="text-align:center"><div style="font-size:9px;color:var(--text3);text-transform:uppercase;margin-bottom:4px">Post Ei</div><div style="font-family:var(--serif);font-size:24px;color:var(--stp)">${post.toFixed(2)}</div></div>
+      </div>
+    </div>
+    <div class="threshold-notice">
+      ⚠ ${lang==='en'
+        ? `Classification thresholds (H₀ &lt; ${EI_NOISE_FLOOR}, H₂ &lt; ${EI_AMBIGUOUS_ZONE}) are provisional — pending validation by QLCM methodology.`
+        : `Los umbrales de clasificación (H₀ &lt; ${EI_NOISE_FLOOR}, H₂ &lt; ${EI_AMBIGUOUS_ZONE}) son provisionales — pendientes de validación por la metodología QLCM.`}
+    </div>
+  `;
+  buildTemplate(pre, post, delta, cat, def);
+  document.getElementById('template-section').classList.add('show');
+  if (state.issueUrl) document.getElementById('btn-open-issue').disabled = false;
+  goToStep(6);
+}
+
+function buildTemplate(pre, post, delta, cat, def) {
+  const seal = state.seal;
+  const op   = OP_LABELS[state.operator]?.en || state.operator;
+  document.getElementById('template-output').value =
+`---
+[RUN] "${state.logon}" — ${state.operator} — ${seal?.gregorian || new Date().toDateString()}
+---
+
+## Experiment Run Log
+
+**Run date:** ${seal?.gregorian || '—'}
+**Conducted by:** Osmary Lisbeth Navarro Tovar & Sheldon K. Salmon
+
+## Logon
+
+**Logon text:** ${state.logon}
+**Logon source:** Defined for this run
+
+## QLCM Phase
+
+**Operator applied:** ${op}
+**Pre-seal Ei:** ${pre.toFixed(2)}
+
+## STP Seal Phase
+
+**Seal applied:** Yes
+**STP ledger issue:** ${state.issueUrl || '— (GitHub error — file manually)'}
+**SHA-256 seal:** ${seal?.seal || '—'}
+**Seal timestamp (Gregorian):** ${seal?.gregorian || '—'}
+**Seal timestamp (Hebrew):** ${seal?.hebrew || '—'}
+**Seal timestamp (Dreamspell):** ${seal?.dreamspell || '—'}
+${seal?.github_error ? `**⚠ GitHub error:** ${seal.github_error}` : ''}
+
+## Post-Seal Measurement
+
+**Post-seal Ei:** ${post.toFixed(2)}
+**Ei delta:** ${(delta>=0?'+':'') + delta.toFixed(3)}
+**Direction:** ${delta > EI_AMBIGUOUS_ZONE ? 'Increased' : delta < -EI_AMBIGUOUS_ZONE ? 'Decreased' : Math.abs(delta) < EI_NOISE_FLOOR ? 'No change' : 'Qualitative / ambiguous'}
+
+## Interference Signal
+
+**Result:** ${cat} — ${def.en}
+
+## Classification note
+
+Thresholds PROVISIONAL (H0 < ${EI_NOISE_FLOOR}, H2 < ${EI_AMBIGUOUS_ZONE}).
+Pending validation by Osmary Lisbeth Navarro Tovar using QLCM methodology.
+
+## Declaration
+
+I confirm this run was conducted as documented, measurements were recorded honestly,
+and no post-hoc adjustment has been made to the pre-seal Ei figure.
+
+- [x] Confirmed
+`;
+}
+
+// P1-002 FIX: explicit event parameter + Clipboard API with fallback
+async function copyTemplate(event) {
+  const text = document.getElementById('template-output').value;
+  const btn  = event.currentTarget;
+  const orig = btn.innerHTML;
+  try { await navigator.clipboard.writeText(text); }
+  catch { const ta=document.getElementById('template-output'); ta.select(); document.execCommand('copy'); }
+  btn.innerHTML = '<span>✓ Copied</span>';
+  setTimeout(() => { btn.innerHTML = orig; setLang(state.lang); }, 1500);
+}
+
+function openGitHubIssue() {
+  if (state.issueUrl) window.open(state.issueUrl, '_blank', 'noopener');
+}
+
+// ── RESET ─────────────────────────────────────────────────────
+function resetExperiment() {
+  Object.assign(state, { step:1, logon:'', operator:null, eiPre:0.50, eiPost:0.50, seal:null, issueUrl:null });
+  wSealFired = false;
+  for (let i=2;i<=6;i++) document.getElementById('step-'+i).classList.add('hidden');
+  for (let i=1;i<=6;i++) {
+    const c = document.getElementById('sc-'+i);
+    c.classList.remove('active','complete','sealed');
+    if (i===1) c.classList.add('active');
+  }
+  document.getElementById('logon-input').value = '';
+  document.getElementById('char-counter').textContent = `0 / ${LOGON_MAX}`;
+  document.getElementById('char-counter').className = 'char-counter';
+  ['ei-pre-input','ei-post-input'].forEach(id => { document.getElementById(id).value='0.50'; });
+  ['ei-pre-slider','ei-post-slider'].forEach(id => { document.getElementById(id).value=50; });
+  ['ei-pre-display','ei-post-display'].forEach(id => { document.getElementById(id).textContent='0.50'; }); // P3-003 FIX
+  document.getElementById('logon-echo').classList.remove('show');
+  ['viz-ei-pre','viz-ei-post'].forEach(id => { const el=document.getElementById(id); el.textContent='—'; el.classList.add('placeholder'); });
+  document.getElementById('viz-ei-pre-bar').style.width='0%';
+  document.getElementById('viz-ei-post-bar').style.width='0%';
+  document.getElementById('delta-display').classList.remove('show');
+  document.getElementById('op-tag').style.display='none';
+  document.getElementById('seal-box').classList.remove('show');
+  document.getElementById('seal-rows').innerHTML='';             // P2-002 FIX
+  document.getElementById('status-seal').classList.remove('show');
+  document.getElementById('status-logon').classList.remove('show');
+  document.getElementById('status-ei-pre').classList.remove('show');
+  document.getElementById('template-section').classList.remove('show');
+  document.getElementById('result-body').innerHTML='';
+  document.getElementById('btn-seal').disabled=false;
+  document.getElementById('btn-seal').classList.remove('sealing');
+  document.getElementById('btn-open-issue').disabled=true;
+  document.getElementById('viz-dot').classList.remove('active','sealed');
+  ['OC','ON','OD'].forEach(o => document.getElementById('op-'+o).classList.remove('selected'));
+  updateProgress(1);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ── INIT ──────────────────────────────────────────────────────
+requestAnimationFrame(() => { resizeWave(); drawWave(); }); // P1-003: deferred
+initField(); animField();
+setLang('en');
+</script>
+</body>
+</html>
